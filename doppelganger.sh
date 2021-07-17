@@ -1,16 +1,41 @@
 dgf=$HOME/.doppelganger
-dg_location="$( cd "$( dirname "$0" )" &> /dev/null && pwd )"
+
+if [ -z "${BASH_SOURCE[0]}" ]
+then
+	dg_location="$( cd "$( dirname "$0" )" &> /dev/null && pwd )"
+else
+	dg_location="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+fi
 
 dgs() {
 	# Save current shell settings to doppelganger file
+
+	# Get current directory
 	echo "cd $(pwd)" > $dgf
-	functions >> $dgf
-	if [ -s "$dg_location/set_ignores" ]
+
+	# Get current shell local variables and functions
+	if [ ! -z "${ZSH_NAME}" ]
 	then
-		set | grep -vf "$dg_location/set_ignores" | grep = >> $dgf
+		# Functions doesn't exist in bash, but set dumps the functions anyway
+		functions >> $dgf
+		if [ -s "$dg_location/set_ignores" ]
+		then
+			# We grep for "=" to exclude unset things that confuse zsh
+			set | grep -vf "$dg_location/set_ignores" | grep = >> $dgf
+		else
+			# We grep for "=" to exclude unset things that confuse zsh
+			set | grep = >> $dgf
+		fi
 	else
-		set | grep = >> $dgf
+		if [ -s "$dg_location/set_ignores" ]
+		then
+			set | grep -vf "$dg_location/set_ignores" >> $dgf
+		else
+			set >> $dgf
+		fi
 	fi
+
+	# Get exported env vars
 	if [ -s "$dg_location/export_ignores" ]
 	then
 		export -p | grep -vf "$dg_location/export_ignores" >> $dgf

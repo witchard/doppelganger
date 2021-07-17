@@ -15,3 +15,8 @@
 ^ZSH_SUBSHELL=
 ^status=
 ^zsh_eval_context=
+^BASH_REMATCH=
+^BASH_VERSINFO=
+^EUID=
+^SHELLOPTS=
+^UID=
