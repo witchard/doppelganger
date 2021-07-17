@@ -63,3 +63,9 @@ dgc() {
 		rm $dgf
 	fi
 }
+
+dgu() {
+	# Update doppelganger
+	cd $dg_location
+	git pull
+}
