@@ -49,8 +49,11 @@ dgl() {
 	if [ -f "$dgf" ]
 	then
 		source $dgf
-		reset # Weird characters sometimes get printed, reset solves it...
-		echo "doppelgänger engaged"
+		if [ -z "$dg_non_interractive" ]
+		then
+			reset # Weird characters sometimes get printed, reset solves it...
+			echo "doppelgänger engaged"
+		fi
 	else
 		echo "no doppelgänger available"
 	fi
