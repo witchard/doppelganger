@@ -1,5 +1,7 @@
 # doppelganger
 
+[![Test](https://github.com/witchard/doppelganger/actions/workflows/test.yml/badge.svg)](https://github.com/witchard/doppelganger/actions/workflows/test.yml)
+
 Save and load your shell environment to create doppelganger shells!
 
 Ever been in one shell, in a specific folder, with some environment active, and then wanted to be in the same place in another? Then doppelganger is for you! The `dgs` command will save the current shell setup (functions, local variables and environment variables), and then `dgl` can be used to load them into a different shell. Your original shell can also still be active.
